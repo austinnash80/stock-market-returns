@@ -45,7 +45,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody id="myTable">
         <% @realizeds.order(:sold).each do |realized| %>
           <tr>
             <td><%= realized.stock %></td>
