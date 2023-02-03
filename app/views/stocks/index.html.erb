@@ -2,7 +2,7 @@
 
 <p>
   <a class="" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Upload new records
+    Upload/Export/Delete
   </a>
 </p>
 <p>
@@ -14,6 +14,11 @@
     <% end %>
     <br>
     <p><%= link_to 'Export (csv)', stocks_path('csv'), class: 'btn btn-sm btn-secondary text-light mt-2' %></p>
+    <% if params['remove_all'] == 'yes' %>
+      <p><%= link_to "Confirm Delete", stocks_path(remove_all: 'yes', confirm: 'yes'), class: 'btn btn-sm btn-danger mt-4' %></p>
+    <% else %>
+      <p><%= link_to "Remove All Records", stocks_path(remove_all: 'yes'), class: 'btn btn-sm btn-warning mt-4' %></p>
+    <% end %>
   </div>
 </div>
 </p>
@@ -30,13 +35,13 @@
         <tr>
           <th>Stock</th>
           <th>Symbol</th>
-          <th>First sale</th>
+          <th>First aquired</th>
           <th>Last sale</th>
           <th>Sales</th>
           <th>Proceeds</th>
           <th>Cost</th>
           <th>Return</th>
-          <th colspan="3"></th>
+          <!-- <th colspan="3"></th> -->
         </tr>
       </thead>
 
@@ -50,10 +55,15 @@
             <td><%= stock.sales %></td>
             <td><% if stock.proceeds.present? %><%= number_to_currency(stock.proceeds, precision: 0) %><% end %></td>
             <td><% if stock.cost.present? %><%= number_to_currency(stock.cost, precision: 0) %><% end %></td>
-            <td><% if stock.return.present? %><%= number_to_currency(stock.return, precision: 0) %><% end %></td>
-            <td><%= link_to 'Show', stock %></td>
-            <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
-            <td><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td class="fw-bold">
+              <% if stock.return.present? %>
+                <% if stock.return >= 0 %><span class="text-success"><%= number_to_currency(stock.return, precision: 0) %></span><% end %>
+                <% if stock.return < 0 %><span class="text-danger"><%= number_to_currency(stock.return, precision: 0) %></span><% end %>
+              <% end %>
+            </td>
+            <!-- <td><%= link_to 'Show', stock %></td> -->
+            <!-- <td><%= link_to 'Edit', edit_stock_path(stock) %></td> -->
+            <!-- <td><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
           </tr>
         <% end %>
         <tr class="fw-bold">
@@ -70,6 +80,7 @@
 
     <br>
 
-    <%= link_to 'New Stock', new_stock_path %>
+    <%#= link_to 'New Stock', new_stock_path %>
   </div>
 </div>
+<br><br>

@@ -5,6 +5,12 @@ class StocksController < ApplicationController
   def index
     @stocks = Stock.all
 
+        # DELETE ALL
+    if params['remove_all'] == 'yes' && params['confirm'] == 'yes'
+      Stock.delete_all
+      redirect_to stocks_path(), notice: 'Records Deleted'
+    end
+
     # EXPORT
     respond_to do |format|
       format.html
@@ -15,11 +21,23 @@ class StocksController < ApplicationController
       #if realized > ID storage then run update - add to stock (last_purchase, proceeds, ) or create new stock
       number_storage_one = NumberStorage.where(id: 1).pluck(:number_storage_one).join.to_i
       Realized.order(:id).where('id > ?', number_storage_one).all.each do |i|
-        Stock.create(stock: i.stock, symbol: i.symbol, first_sale: i.sold, sales: 0, proceeds: 0, cost: 0).save
+        Stock.create(stock: i.stock, symbol: i.symbol, sales: 0, proceeds: 0, cost: 0, first_sale: Date.today, last_sale: "2000-01-01".to_date).save
         stock_sales = Stock.where(symbol: i.symbol).pluck(:sales).join.to_i
         stock_proceeds = Stock.where(symbol: i.symbol).pluck(:proceeds).join.to_f
         stock_cost = Stock.where(symbol: i.symbol).pluck(:cost).join.to_f
-        Stock.where(symbol: i.symbol).update_all last_sale: i.sold, sales: (1 + stock_sales), proceeds: (i.proceeds + stock_proceeds), cost: (i.cost + stock_cost)
+        stock_last_sale = Stock.where(symbol: i.symbol).pluck(:last_sale).join.to_date
+        stock_first_acquired = Stock.where(symbol: i.symbol).pluck(:first_sale).join.to_date
+        if stock_last_sale > i.sold
+          new_last_sale = stock_last_sale
+        else
+          new_last_sale = i.sold
+        end
+        if stock_first_acquired < i.acquired
+          new_acquired = stock_first_acquired
+        else
+          new_acquired = i.acquired
+        end
+        Stock.where(symbol: i.symbol).update_all first_sale: new_acquired, last_sale: new_last_sale, sales: (1 + stock_sales), proceeds: (i.proceeds + stock_proceeds), cost: (i.cost + stock_cost)
         NumberStorage.where(id: 1).update_all number_storage_one: i.id
       end
       Stock.all.each do |i|

@@ -5,6 +5,12 @@ class RealizedsController < ApplicationController
   def index
     @realizeds = Realized.all
 
+    # DELETE ALL
+    if params['remove_all'] == 'yes' && params['confirm'] == 'yes'
+      Realized.delete_all
+      redirect_to realizeds_path(), notice: 'Records Deleted'
+    end
+
     # EXPORT
     respond_to do |format|
       format.html

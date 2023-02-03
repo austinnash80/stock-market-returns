@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get 'pages/homepage'
   get 'pages/realized'
   get 'pages/stocks'
+  get 'pages/number_storage'
 end
