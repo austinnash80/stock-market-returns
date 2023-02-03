@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title fw-bold">Number Storages</h5>
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Number storage one</th>
+      <th>Number storage two</th>
+      <th>Number storage three</th>
+      <th>Number storage four</th>
+      <th>Number storage five</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @number_storages.each do |number_storage| %>
+      <tr>
+        <td><%= number_storage.number_storage_one %></td>
+        <td><%= number_storage.number_storage_two %></td>
+        <td><%= number_storage.number_storage_three %></td>
+        <td><%= number_storage.number_storage_four %></td>
+        <td><%= number_storage.number_storage_five %></td>
+        <!-- <td><%= link_to 'Show', number_storage %></td> -->
+        <td><%= link_to 'Edit', edit_number_storage_path(number_storage) %></td>
+        <!-- <td><%= link_to 'Destroy', number_storage, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+</div>

@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock: MyString
+  symbol: MyString
+  first_sale: 2023-02-02
+  last_sale: 2023-02-02
+  sales: 1
+  proceeds: 9.99
+  cost: 9.99
+  return: 9.99
+
+two:
+  stock: MyString
+  symbol: MyString
+  first_sale: 2023-02-02
+  last_sale: 2023-02-02
+  sales: 1
+  proceeds: 9.99
+  cost: 9.99
+  return: 9.99

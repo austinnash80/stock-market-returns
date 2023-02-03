@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stock:</strong>
+  <%= @stock.stock %>
+</p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @stock.symbol %>
+</p>
+
+<p>
+  <strong>First sale:</strong>
+  <%= @stock.first_sale %>
+</p>
+
+<p>
+  <strong>Last sale:</strong>
+  <%= @stock.last_sale %>
+</p>
+
+<p>
+  <strong>Sales:</strong>
+  <%= @stock.sales %>
+</p>
+
+<p>
+  <strong>Proceeds:</strong>
+  <%= @stock.proceeds %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @stock.cost %>
+</p>
+
+<p>
+  <strong>Return:</strong>
+  <%= @stock.return %>
+</p>
+
+<%= link_to 'Edit', edit_stock_path(@stock) %> |
+<%= link_to 'Back', stocks_path %>

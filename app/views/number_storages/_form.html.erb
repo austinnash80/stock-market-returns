@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@number_storage) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :number_storage_one %>
+    <%= f.input :number_storage_two %>
+    <%= f.input :number_storage_three %>
+    <%= f.input :number_storage_four %>
+    <%= f.input :number_storage_five %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

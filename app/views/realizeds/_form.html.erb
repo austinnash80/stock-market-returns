@@ -1,0 +1,23 @@
+
+<%= simple_form_for(@realized) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :stock %>
+    <%= f.input :symbol %>
+    <%= f.input :acquired %>
+    <%= f.input :sold %>
+    <%= f.input :proceeds %>
+    <%= f.input :cost %>
+    <%= f.input :extra_s %>
+    <%= f.input :extra_d %>
+    <%= f.input :extra_b %>
+    <%= f.input :extra_i %>
+    <%= f.input :extra_de %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

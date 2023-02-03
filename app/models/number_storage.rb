@@ -1,0 +1,2 @@
+class NumberStorage < ApplicationRecord
+end
